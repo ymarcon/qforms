@@ -1,7 +1,7 @@
 <template>
   <div class="json-form-wrapper">
     <json-forms
-      :data="moduleValue"
+      :data="modelValue"
       :schema="schema"
       :uischema="uischema"
       :renderers="renderers"
@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import { provide, toRef } from 'vue';
 import { JsonForms } from '@jsonforms/vue';
 import { vanillaRenderers } from '@jsonforms/vue-vanilla';
 import {
@@ -61,8 +62,8 @@ const customRenderers = [
 // Combine custom renderers with default vanilla renderers
 const renderers = Object.freeze([...vanillaRenderers, ...customRenderers]);
 
-defineProps({
-  moduleValue: {
+const props = defineProps({
+  modelValue: {
     type: Object,
     required: false,
     default: () => ({}),
@@ -77,11 +78,14 @@ defineProps({
     default: () => ({}),
   },
 });
-const emit = defineEmits(['update:moduleValue']);
+const emit = defineEmits(['update:modelValue']);
+
+// Provide form data to all child renderers
+provide('jsonforms-data', toRef(props, 'modelValue'));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onChange = (event: any) => {
-  emit('update:moduleValue', event.data);
+  emit('update:modelValue', event.data);
 };
 </script>
 
