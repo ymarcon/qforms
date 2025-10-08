@@ -1,43 +1,112 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="q-pa-md">
+    <JsonForm :schema="schema" :uischema="uischema" v-model:moduleValue="formData" />
+    <pre>{{ formData }}</pre>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+import JsonForm from 'components/JsonForm.vue';
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1',
-  },
-  {
-    id: 2,
-    content: 'ct2',
-  },
-  {
-    id: 3,
-    content: 'ct3',
-  },
-  {
-    id: 4,
-    content: 'ct4',
-  },
-  {
-    id: 5,
-    content: 'ct5',
-  },
-]);
+const formData = ref({});
 
-const meta = ref<Meta>({
-  totalCount: 1200,
-});
+// Define your JSON Schema
+const schema = {
+  type: 'object',
+  properties: {
+    string: {
+      type: 'string',
+    },
+    boolean: {
+      type: 'boolean',
+      description: 'Boolean description as a tooltip',
+    },
+    number: {
+      type: 'number',
+    },
+    integer: {
+      type: 'integer',
+    },
+    date: {
+      type: 'string',
+      format: 'date',
+    },
+    time: {
+      type: 'string',
+      format: 'time',
+    },
+    dateTime: {
+      type: 'string',
+      format: 'date-time',
+    },
+    enum: {
+      type: 'string',
+      enum: ['One', 'Two', 'Three'],
+    },
+    comments: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          date: {
+            type: 'string',
+            format: 'date',
+          },
+          message: {
+            type: 'string',
+            maxLength: 5,
+          },
+          enum: {
+            type: 'string',
+            enum: ['foo', 'bar'],
+          },
+        },
+      },
+    },
+  },
+};
+
+// Optional UI Schema for layout customization
+const uischema = {
+  type: 'VerticalLayout',
+  elements: [
+    {
+      type: 'Control',
+      scope: '#/properties/string',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/boolean',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/number',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/integer',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/date',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/time',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/dateTime',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/enum',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/comments',
+    },
+  ],
+};
 </script>
