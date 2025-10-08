@@ -1,8 +1,7 @@
 // src/jsonforms/QuasarStringRenderer.vue
 <template>
-  <q-input
+  <q-toggle
     :model-value="control.data"
-    type="number"
     @update:model-value="onChange"
     :label="control.label"
     :error="!!control.errors"
@@ -13,9 +12,9 @@
 
 <script setup lang="ts">
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
-import type { ControlElement } from '@jsonforms/core';
 
 const props = defineProps(rendererProps());
+import type { ControlElement } from '@jsonforms/core';
 
 const controlResult = useJsonFormsControl({
   ...props,
@@ -24,7 +23,7 @@ const controlResult = useJsonFormsControl({
 
 const control = controlResult.control;
 
-const onChange = (value: string | number | null) => {
-  controlResult.handleChange(control.value.path, Number(value));
+const onChange = (value: boolean | null) => {
+  controlResult.handleChange(control.value.path, value);
 };
 </script>

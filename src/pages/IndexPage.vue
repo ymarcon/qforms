@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import JsonForm from 'components/JsonForm.vue';
+import JsonForm from 'components/jsonforms/JsonForm.vue';
 import { useI18n } from 'vue-i18n';
 
 const formData = ref({});
@@ -34,14 +34,6 @@ const schema = {
     date: {
       type: 'string',
       format: 'date',
-    },
-    time: {
-      type: 'string',
-      format: 'time',
-    },
-    dateTime: {
-      type: 'string',
-      format: 'date-time',
     },
     enum: {
       type: 'string',
@@ -93,14 +85,6 @@ const uischema = {
     {
       type: 'Control',
       scope: '#/properties/date',
-    },
-    {
-      type: 'Control',
-      scope: '#/properties/time',
-    },
-    {
-      type: 'Control',
-      scope: '#/properties/dateTime',
     },
     {
       type: 'Control',

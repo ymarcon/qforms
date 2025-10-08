@@ -19,23 +19,42 @@ import {
   type UISchemaElement,
   isIntegerControl,
   isNumberControl,
+  isBooleanControl,
+  isEnumControl,
+  isDateControl,
 } from '@jsonforms/core';
-import QStringRenderer from './jsonforms/QStringRenderer.vue';
-import QNumRenderer from './jsonforms/QNumberRenderer.vue';
+import QStringRenderer from './QStringRenderer.vue';
+import QNumRenderer from './QNumberRenderer.vue';
+import QToggleRenderer from './QToggleRenderer.vue';
+import QEnumRenderer from './QEnumRenderer.vue';
+import QDateRenderer from './QDateRenderer.vue';
 
 // Define your custom renderers
+// Priority 3 - higher than default (usually 1-2)
 const customRenderers = [
   {
     renderer: QStringRenderer,
-    tester: rankWith(3, isStringControl), // Priority 3 - higher than default (usually 1-2)
+    tester: rankWith(3, isStringControl),
   },
   {
     renderer: QNumRenderer,
-    tester: rankWith(3, isIntegerControl), // Priority 3 - higher than default (usually 1-2)
+    tester: rankWith(3, isIntegerControl),
   },
   {
     renderer: QNumRenderer,
-    tester: rankWith(3, isNumberControl), // Priority 3 - higher than default (usually 1-2)
+    tester: rankWith(3, isNumberControl),
+  },
+  {
+    renderer: QToggleRenderer,
+    tester: rankWith(3, isBooleanControl),
+  },
+  {
+    renderer: QEnumRenderer,
+    tester: rankWith(4, isEnumControl), // Higher priority than String control
+  },
+  {
+    renderer: QDateRenderer,
+    tester: rankWith(4, isDateControl),
   },
 ];
 
