@@ -1,6 +1,7 @@
 // src/jsonforms/QuasarStringRenderer.vue
 <template>
   <q-input
+    v-if="control.visible !== false"
     :model-value="control.data"
     type="number"
     @update:model-value="onChange"
@@ -8,10 +9,13 @@
     :error="!!control.errors"
     :error-message="control.errors"
     :required="control.required"
+    :disable="!control.enabled"
+    :hint="control.description"
   />
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
 import type { ControlElement } from '@jsonforms/core';
 
@@ -24,7 +28,16 @@ const controlResult = useJsonFormsControl({
 
 const control = controlResult.control;
 
-const onChange = (value: string | number | null) => {
+watch(
+  () => control.value.visible,
+  (newValue: boolean) => {
+    if (newValue === false) {
+      onChange(undefined);
+    }
+  },
+);
+
+const onChange = (value: string | number | null | undefined) => {
   controlResult.handleChange(control.value.path, Number(value));
 };
 </script>

@@ -11,7 +11,7 @@ import { ref } from 'vue';
 import JsonForm from 'components/jsonforms/JsonForm.vue';
 import { useI18n } from 'vue-i18n';
 
-const formData = ref({});
+const formData = ref({ integer: 1 });
 const { t } = useI18n();
 
 // Define your JSON Schema
@@ -23,13 +23,14 @@ const schema = {
     },
     boolean: {
       type: 'boolean',
-      description: 'Boolean description as a tooltip',
+      description: 'This toggle is enabled only if "enum" is "One"',
     },
     number: {
       type: 'number',
     },
     integer: {
       type: 'integer',
+      description: 'This integer must be between 1 and 10 to show string input',
     },
     date: {
       type: 'string',
@@ -76,6 +77,13 @@ const uischema = {
             {
               type: 'Control',
               scope: '#/properties/string',
+              rule: {
+                effect: 'SHOW',
+                condition: {
+                  scope: '#/properties/integer',
+                  schema: { minimum: 1, exclusiveMaximum: 10 },
+                },
+              },
             },
             {
               type: 'Control',
@@ -101,6 +109,13 @@ const uischema = {
             {
               type: 'Control',
               scope: '#/properties/boolean',
+              rule: {
+                effect: 'ENABLE',
+                condition: {
+                  scope: '#/properties/enum',
+                  schema: { const: 'One' },
+                },
+              },
             },
           ],
         },

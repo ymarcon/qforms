@@ -1,6 +1,7 @@
 <template>
   <div class="q-mb-md">
     <q-select
+      v-if="control.visible !== false"
       :model-value="control.data"
       @update:model-value="onChange"
       :options="options"
@@ -9,6 +10,7 @@
       :error-message="control.errors"
       :required="control.required"
       :disable="!control.enabled"
+      :hint="control.description"
       emit-value
       map-options
     />
@@ -16,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
 import type { ControlElement } from '@jsonforms/core';
 
@@ -43,7 +45,16 @@ const options = computed(() => {
   }));
 });
 
-const onChange = (value: string | number | null) => {
+watch(
+  () => control.value.visible,
+  (newValue: boolean) => {
+    if (newValue === false) {
+      onChange(undefined);
+    }
+  },
+);
+
+const onChange = (value: string | number | null | undefined) => {
   controlResult.handleChange(controlResult.control.value.path, value);
 };
 </script>

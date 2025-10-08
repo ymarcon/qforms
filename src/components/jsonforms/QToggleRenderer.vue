@@ -1,16 +1,20 @@
 // src/jsonforms/QuasarStringRenderer.vue
 <template>
   <q-toggle
+    v-if="control.visible !== false"
     :model-value="control.data"
     @update:model-value="onChange"
     :label="control.label"
     :error="!!control.errors"
     :error-message="control.errors"
     :required="control.required"
+    :disable="!control.enabled"
   />
+  <div v-if="control.description">{{ control.description }}</div>
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
 
 const props = defineProps(rendererProps());
@@ -23,7 +27,16 @@ const controlResult = useJsonFormsControl({
 
 const control = controlResult.control;
 
-const onChange = (value: boolean | null) => {
+watch(
+  () => control.value.visible,
+  (newValue: boolean) => {
+    if (newValue === false) {
+      onChange(undefined);
+    }
+  },
+);
+
+const onChange = (value: boolean | null | undefined) => {
   controlResult.handleChange(control.value.path, value);
 };
 </script>
