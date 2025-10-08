@@ -78,7 +78,9 @@ export function useControlRules(control: ComputedRef<any>) {
   });
 
   const errorMessage = computed(() => {
-    const jsonFormsErrors = control.value.errors;
+    const jsonFormsErrors = Array.isArray(control.value.errors)
+      ? control.value.errors
+      : [control.value.errors];
     const customErrors = customValidationErrors.value;
     // Combine both error arrays
     const allErrors = [...jsonFormsErrors, ...customErrors];
