@@ -1,1 +1,5 @@
 // app global css in SCSS form
+.horizontal-layout {
+  display: flex;
+  gap: 1rem; /* 16px */
+}

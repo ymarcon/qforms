@@ -66,29 +66,45 @@ const schema = {
 const uischema = {
   type: 'VerticalLayout',
   elements: [
+    { type: 'Label', text: 'A simple form example' },
     {
-      type: 'Control',
-      scope: '#/properties/string',
-    },
-    {
-      type: 'Control',
-      scope: '#/properties/boolean',
-    },
-    {
-      type: 'Control',
-      scope: '#/properties/number',
-    },
-    {
-      type: 'Control',
-      scope: '#/properties/integer',
-    },
-    {
-      type: 'Control',
-      scope: '#/properties/date',
-    },
-    {
-      type: 'Control',
-      scope: '#/properties/enum',
+      type: 'HorizontalLayout',
+      elements: [
+        {
+          type: 'VerticalLayout',
+          elements: [
+            {
+              type: 'Control',
+              scope: '#/properties/string',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/date',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/enum',
+            },
+          ],
+        },
+        {
+          type: 'VerticalLayout',
+          elements: [
+            {
+              type: 'Control',
+              scope: '#/properties/number',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/integer',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/boolean',
+            },
+          ],
+        },
+      ],
     },
     {
       type: 'Control',
