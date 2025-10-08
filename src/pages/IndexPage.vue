@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="text-h5">{{ t('json_form') }}</div>
-    <JsonForm :schema="schema" :uischema="uischema" v-model:moduleValue="formData" />
+    <JsonForm v-model="formData" :schema="schema" :uischema="uischema" />
     <pre>{{ formData }}</pre>
   </q-page>
 </template>
@@ -77,12 +77,8 @@ const uischema = {
             {
               type: 'Control',
               scope: '#/properties/string',
-              rule: {
-                effect: 'SHOW',
-                condition: {
-                  scope: '#/properties/integer',
-                  schema: { minimum: 1, exclusiveMaximum: 10 },
-                },
+              options: {
+                visibilityRule: 'integer >= 1 and integer < 10',
               },
             },
             {
@@ -109,12 +105,8 @@ const uischema = {
             {
               type: 'Control',
               scope: '#/properties/boolean',
-              rule: {
-                effect: 'ENABLE',
-                condition: {
-                  scope: '#/properties/enum',
-                  schema: { const: 'One' },
-                },
+              options: {
+                enableRule: `enum == "One"`,
               },
             },
           ],

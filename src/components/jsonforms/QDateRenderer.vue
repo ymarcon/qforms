@@ -1,22 +1,22 @@
-// src/jsonforms/QuasarStringRenderer.vue
 <template>
   <q-input
-    v-if="control.visible !== false"
+    v-if="isVisible"
     :model-value="control.data"
     @update:model-value="onChange"
     :label="control.label"
-    :error="!!control.errors"
-    :error-message="control.errors"
+    :error="hasError"
+    :error-message="errorMessage"
     :required="control.required"
-    :disable="!control.enabled"
-    :hint="control.description"
+    :disable="!isEnabled"
+    :hint="control.description || hint"
+    v-bind="componentProps"
   >
     <template v-slot:append>
       <q-icon name="event" class="cursor-pointer">
         <q-popup-proxy cover transition-show="scale" transition-hide="scale">
           <q-date :model-value="control.data" mask="YYYY-MM-DD" @update:model-value="onChange">
             <div class="row items-center justify-end">
-              <q-btn v-close-popup label="Close" color="primary" flat />
+              <q-btn v-close-popup :label="t('close')" color="primary" flat />
             </div>
           </q-date>
         </q-popup-proxy>
@@ -27,7 +27,11 @@
 
 <script setup lang="ts">
 import { watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
+import { useControlRules } from 'src/composables/useControlRules';
+
+const { t } = useI18n();
 
 const props = defineProps(rendererProps());
 import type { ControlElement } from '@jsonforms/core';
@@ -39,8 +43,12 @@ const controlResult = useJsonFormsControl({
 
 const control = controlResult.control;
 
+// Use the generic control rules composable
+const { isVisible, isEnabled, hasError, errorMessage, hint, componentProps } =
+  useControlRules(control);
+
 watch(
-  () => control.value.visible,
+  () => isVisible.value,
   (newValue: boolean) => {
     if (newValue === false) {
       onChange(undefined);
