@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-pa-md">
+    <div class="text-h5">{{ t('json_form') }}</div>
     <JsonForm :schema="schema" :uischema="uischema" v-model:moduleValue="formData" />
     <pre>{{ formData }}</pre>
   </q-page>
@@ -8,8 +9,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import JsonForm from 'components/JsonForm.vue';
+import { useI18n } from 'vue-i18n';
 
 const formData = ref({});
+const { t } = useI18n();
 
 // Define your JSON Schema
 const schema = {

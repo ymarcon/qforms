@@ -1,7 +1,7 @@
 // src/jsonforms/QuasarStringRenderer.vue
 <template>
   <q-input
-    v-model="control.data"
+    :model-value="control.data"
     @update:model-value="onChange"
     :label="control.label"
     :error="!!control.errors"
