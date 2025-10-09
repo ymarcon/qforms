@@ -47,9 +47,7 @@
       <q-tab-panels v-model="tabPreview" animated>
         <q-tab-panel name="form" class="q-pl-none q-pr-none">
           <QJsonForm v-model="formData" :schema="formSchema" :uischema="formUischema" />
-          <pre
-            class="bg-grey-10 text-white q-pa-md"
-          ><code class="language-json" v-prism>{{ formData }}</code></pre>
+          <pre class="bg-grey-10 text-white q-pa-md"><code>{{ formData }}</code></pre>
         </q-tab-panel>
       </q-tab-panels>
     </div>
