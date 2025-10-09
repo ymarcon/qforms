@@ -1,4 +1,4 @@
-import{d as ee}from"./index-Dbn3Q2dj.js";import{c as X,g as te}from"./_commonjsHelpers-Cpj98o6Y.js";var G={exports:{}},Y;function ae(){return Y||(Y=1,(function(w){var J=typeof window<"u"?window:typeof WorkerGlobalScope<"u"&&self instanceof WorkerGlobalScope?self:{};/**
+import{d as ee}from"./index-C2owJnVx.js";import{c as X,g as te}from"./_commonjsHelpers-Cpj98o6Y.js";var G={exports:{}},Y;function ae(){return Y||(Y=1,(function(w){var J=typeof window<"u"?window:typeof WorkerGlobalScope<"u"&&self instanceof WorkerGlobalScope?self:{};/**
  * Prism: Lightweight, robust, elegant syntax highlighting
  *
  * @license MIT <https://opensource.org/licenses/MIT>
