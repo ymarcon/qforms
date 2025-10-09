@@ -50,7 +50,7 @@ export default defineConfig(() => {
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      // publicPath: '/',
+      publicPath: '/qforms/',
       // analyze: true,
       // env: {},
       // rawDefine: {}
