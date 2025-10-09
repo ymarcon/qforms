@@ -1,0 +1,1 @@
+import{d as o}from"./index-Dbn3Q2dj.js";import{c}from"./vue-i18n-CXu5PuEh.js";const n={json_form:"JSON Form",failed:"Action failed",success:"Action was successful"},a={"en-US":n},i=o(({app:s})=>{const e=c({locale:"en-US",legacy:!1,messages:a});s.use(e)});export{i as default};
