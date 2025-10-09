@@ -1,14 +1,13 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h5">{{ t('json_form') }}</div>
-    <JsonForm v-model="formData" :schema="schema" :uischema="uischema" />
-    <pre>{{ formData }}</pre>
+    <div class="text-h5 q-mb-md">{{ t('json_form') }}</div>
+    <FormPresenter :data="formData" :schema="schema" :uischema="uischema" readonly />
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import JsonForm from 'components/jsonforms/JsonForm.vue';
+import FormPresenter from 'src/components/FormPresenter.vue';
 import { useI18n } from 'vue-i18n';
 
 const formData = ref({ integer: 1 });
